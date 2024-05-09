@@ -1,0 +1,32 @@
+[Фильмотека]
+IPTV - https://lat5.github.io/pl/IPTV - http://cub.red/plugin/iptv - Плагин для просмотра IPTV
+Categories - https://lat5.github.io/pl/Categories - https://lampame.github.io/main/nc/nc.js - Категории в главном меню
+Collections - https://lat5.github.io/pl/Collections - https://cub.red/plugin/collections - Коллекции фильмов
+Rating - https://lat5.github.io/pl/Rating - https://nb557.github.io/plugins/rating.js - Рейтинг из IMDB и Кинопоиск
+Reviews - https://lat5.github.io/pl/Reviews - http://newtv.mail66.org/o.js - Рецензии из КиноПоиска
+TMDBProxy - https://lat5.github.io/pl/TMDBProxy - http://cub.red/plugin/tmdb-proxy - Проксирование для TMDB
+Kinopoisk - https://lat5.github.io/pl/Kinopoisk - https://nb557.github.io/plugins/kp_source.js - Добавление Кинопоиска в источники
+
+[Настройки]
+Tricks - https://lat5.github.io/pl/Tricks - https://andreyurl54.github.io/diesel5/tricks.js - "Приятные мелочи" в настройках
+Store - https://lat5.github.io/pl/Store - https://skaztv.online/store.js - Магазин пиратских плагинов
+HotKeys - https://lat5.github.io/pl/HotKeys - https://nnmdd.github.io/lampa_hotkeys/hotkeys.js - Горячие клавиши 8, 5, 0
+Interface (только с CUB Premium)- https://lat5.github.io/pl/Interface - http://cub.red/plugin/interface - Новый стильный интерфейс
+Exit - https://lat5.github.io/pl/Exit - https://tsynik.github.io/lampa/e.js - Кнопка выхода в главном меню
+NotMobile - https://lat5.github.io/pl/NotMobile - https://nb557.github.io/pligins/not_mobile.js - Выключение режима смартфона
+RemoteType - https://lat5.github.io/pl/RemoteType - https://nemiroff.github.io/lampa/select_weapon.js - Настройка типа управления
+
+[Торрент]
+CUBTorrent - https://lat5.github.io/pl/CUBTorrent - http://cub.red/plugin/etor - Парсер торрентов от CUB
+Tracks - https://lat5.github.io/pl/Tracks - http://cub.red/plugin/tracks - Аудиодорожки в торрентах
+PubParsers - https://lat5.github.io/pl/PubParsers - https://lampame.github.io/main/pubtorr/pubtorr.js - Отображение публичных парсеров
+TorrentInfo - https://lat5.github.io/pl/TorrentInfo - https://plugin.rootu.top/ts-preload.js - Информация о торренте при предзагрузке
+
+[Онлайн просмотр]
+OnlineMod - https://lat5.github.io/pl/online_mod - https://nb557.github.io/plugins/online_mod.js - Плагин для просмотра фильмов 
+SkazTV - https://lat5.github.io/pl/SkazTV - https://skaz.tv/tv.js - Телевидение by Skaz
+Stream - https://lat5.github.io/pl/Stream - http://arkmv.ru/vod - Доп для просмотра фильмов
+Showy - https://lat5.github.io/pl/Showy - http://showy.online/m.js - Онлайн просмотр, есть 4K
+
+[Тест]
+Вывод Lampa.Storage - https://lat5.github.io/pl/test00 - https://lat5.github.io/pl/test - Тестирование вывода данных

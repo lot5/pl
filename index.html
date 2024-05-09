@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Плагины Lampa</title>
+    <!-- Добавляем иконку сайта -->
+    <link rel="icon" type="image/jpeg" href="lampa_plugins.jpg">
+    <script>
+        function loadPlugins() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var pluginsData = xhr.responseText;
+                        parsePlugins(pluginsData);
+                    } else {
+                        console.error('Не удалось загрузить данные из файла plugins_list.txt');
+                    }
+                }
+            };
+            xhr.open('GET', 'plugins_list.txt', true);
+            xhr.send();
+        }
+
+        function parsePlugins(data) {
+            var plugins = data.split('\n');
+            var table = document.getElementById('pluginsTable');
+            var currentCategory = ''; // Переменная для хранения текущей категории
+            var isFirstCategory = true; // Переменная для отслеживания первой категории
+
+            plugins.forEach(function(plugin) {
+                if (plugin.trim() !== '') {
+                    // Если строка начинается с квадратной скобки, то это новая категория
+                    if (plugin.trim().startsWith('[')) {
+                        // Если это не первая категория, добавляем три строки отступа
+                        if (!isFirstCategory) {
+                            var spacerRow = table.insertRow();
+                            var spacerCell = spacerRow.insertCell(0);
+                            spacerCell.colSpan = 6; // Распространяем ячейку на все столбцы
+                            spacerCell.style.height = '2em'; // Устанавливаем высоту отступа
+                        } else {
+                            isFirstCategory = false; // Первая категория обработана
+                        }
+
+                        currentCategory = plugin.trim().slice(1, -1); // Убираем скобки и обновляем текущую категорию
+                        // Добавляем строку для отображения названия категории
+                        var categoryRow = table.insertRow();
+                        var categoryCell = categoryRow.insertCell(0);
+                        categoryCell.colSpan = 6; // Распространяем ячейку на все столбцы
+                        categoryCell.style.fontWeight = 'bold'; // Жирный шрифт для названия категории
+                        categoryCell.innerText = currentCategory;
+                    } else {
+                        var pluginParts = plugin.split(' - ');
+                        var name = pluginParts[0];
+                        var url = pluginParts[1];
+                        var source = pluginParts[2] ? pluginParts[2] : '-';
+                        var description = pluginParts[3] ? pluginParts.slice(3).join(' - ') : '-';
+                        var row = table.insertRow();
+                        var nameCell = row.insertCell(0);
+                        var copyCell = row.insertCell(1);
+                        var urlCell = row.insertCell(2);
+                        var sourceCell = row.insertCell(3);
+                        var downloadCell = row.insertCell(4);
+                        var descriptionCell = row.insertCell(5);
+                        nameCell.innerText = name;
+                        copyCell.innerHTML = '<button onclick="copyToClipboard(\'' + url + '\')">Копировать ссылку</button>';
+                        urlCell.innerHTML = '<a href="' + url + '">' + url + '</a>';
+                        sourceCell.innerHTML = source === '-' ? '-' : '<a href="' + source + '" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' + source + '</a>';
+                        downloadCell.innerHTML = url ? '<button onclick="downloadFile(\'' + name + '\', \'' + url + '\')" class="download-button">Скачать</button>' : '-';
+                        descriptionCell.innerText = description === '-' ? '-' : description;
+                        
+                        // Центрирование дефиса во всех столбцах
+                        var cells = [nameCell, copyCell, urlCell, sourceCell, downloadCell, descriptionCell];
+                        cells.forEach(function(cell) {
+                            if (cell.innerText === '-') {
+                                cell.style.textAlign = 'center';
+                                cell.style.verticalAlign = 'middle';
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        function copyToClipboard(url) {
+            var textField = document.createElement('textarea');
+            textField.innerText = url;
+            document.body.appendChild(textField);
+            textField.select();
+            document.execCommand('copy');
+            textField.remove();
+        }
+
+        function downloadFile(name, url) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var blob = new Blob([xhr.responseText], {type: 'application/javascript'});
+                        var link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = name + '.js';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    } else {
+                        console.error('Не удалось загрузить файл: ' + url);
+                    }
+                }
+            };
+            xhr.open('GET', url, true);
+            xhr.send();
+        }
+
+        window.onload = loadPlugins;
+    </script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top; /* выравнивание содержимого ячейки по верхнему краю */
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Стиль кнопки для скачивания */
+        .download-button {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            vertical-align: middle;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Выравнивание содержимого столбца "Название" */
+        td:first-child {
+            vertical-align: middle;
+        }
+
+        /* Ограничение описания по одной строке */
+        td:nth-child(6) {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+
+<table id="pluginsTable">
+    <tr>
+        <th>Название</th>
+        <th>Скопировать</th>
+        <th>Ссылка</th>
+        <th>Источник</th>
+        <th>Скачать</th>
+        <th>Описание</th>
+    </tr>
+</table>
+
+</body>
+</html> 
